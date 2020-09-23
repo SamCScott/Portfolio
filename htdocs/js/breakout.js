@@ -1,27 +1,34 @@
-import paddle from "../js/paddle";
 
-let canvas = document.getElementById("gameScreen");
-let ctx = canvas.getContext("2d");
+import Paddle from "../htdocs/js/paddle";
+import InputHandler from "../htdocs/js/input";
 
-const GAME_WIDTH = 800;
-const GAME_HEIGHT = 600;
 
-let paddle = new paddle(GAME_WIDTH, GAME_HEIGHT);
+let canvas = document.getElementById('gameScreen');
+let ctx = canvas.getContext('2d');
 
-paddle.draw(ctx);
 
-let lastTime = 0;
+ const GAME_WIDTH = 800;
+ const GAME_HEIGHT = 600;
 
-function gameLoop(timestamp){
-    let deltaTime = timestamp - lastTime;
 
-    lastTime = timestamp;
+ let paddle = new Paddle(GAME_WIDTH, GAME_HEIGHT);
 
-    ctx.clearRect(0,0, 800, 600);
-    paddle.update(deltaTime);
-    paddle.draw(ctx);
+ new InputHandler();
 
-    requestAnimationFrame(gameLoop);
-}
+ paddle.draw(ctx);
 
-gameLoop();
+ let lastTime = 0;
+
+ function gameLoop(timestamp){
+     let deltaTime = timestamp - lastTime;
+
+     lastTime = timestamp;
+
+     ctx.clearRect(0,0, 800, 600);
+     paddle.update(deltaTime);
+     paddle.draw(ctx);
+
+     requestAnimationFrame(gameLoop);
+ }
+
+ gameLoop();
